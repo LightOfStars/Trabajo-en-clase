@@ -19,14 +19,14 @@
             <p id="palabra"></p>
             <label>Ingrese una letra:</label>
             <input type="text" id="letra" maxlength="1">            
-            <p id="intentos">Intentos: <span id="intentosRestantes">6</span></p>
+            <p id="intentos">Intentos restantes: <span id="intentosRestantes">6</span></p>
             <p id="letras">Letras usadas:<span id="letrasUsadas"></span></p>
         </section>        
-        <button id="jugar">Jugar</button>
-        <button id="validar">Validar Letra</button>
-        <button id="reiniciar">Reiniciar</button>
+        <button onclick="jugar();" id="jugar">Jugar</button>
+        <button onclick="validarLetra();" id="validar">Validar Letra</button>
+        <button onclick="reiniciar();" id="reiniciar">Reiniciar</button>
     </main>
     
-    <script src="./js/index.js"></script>
+    <script src="./scripts/app.js"></script>
 </body>
 </html>
