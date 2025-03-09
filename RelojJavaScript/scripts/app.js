@@ -3,7 +3,7 @@ en el elemento HTML con id="reloj" al presionar el botón con id="mostrar" */
 let tiempoActual = new Date();
 let año = tiempoActual.getFullYear();
 let mes = tiempoActual.getMonth();
-let dia = tiempoActual.getDay();
+let dia = tiempoActual.getDate();
 let hora = tiempoActual.getHours();
 let minuto = tiempoActual.getMinutes();
 let segundo = tiempoActual.getSeconds();
@@ -13,7 +13,7 @@ function reloj() {
     tiempoActual = new Date();
     año = tiempoActual.getFullYear();
     mes = tiempoActual.getMonth();
-    dia = tiempoActual.getDay();
+    dia = tiempoActual.getDate();
     hora = tiempoActual.getHours();
     minuto = tiempoActual.getMinutes();
     segundo = tiempoActual.getSeconds();
