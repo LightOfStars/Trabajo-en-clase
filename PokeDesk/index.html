@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PokeAPI</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+        } 
         table {
-            margin: 20px auto;
-            width: 70%;
-            background-color: #b63f3f;
-            padding: 20px;
+            width: 21vw;
+            height: 20vh;
             font-size: 1.5em;
             text-align: left;
         }
@@ -21,15 +23,30 @@
         #contenedor {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
-            height: 80vh;           
+            height: 100vh; 
+            width: 100vw;          
+        }
+        #contenedor > :first-child {
+            border: 1px solid black;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 35vh;
+            width: 25vw;
+            
         }
 
         #info_pokemon{
             border: 1px solid black;
-            display: inline-block;
-            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: 55vh;
             width: 25vw;
             text-align: center;
             background-color: #CC0000;
@@ -38,7 +55,8 @@
         }
 
         #pokemon_image{
-            width: 180px;
+            width: 20vh;
+            height: 20vh;
             background-color: white;
             border-radius: 10px;
         }
@@ -49,11 +67,14 @@
 <body>
     <main id="contenedor">
         <section>
-            <img src="./img/pokeapi.png">
-            <br/><br/>
+            <img src="./resources/pokeapi.png">
             <label>Nombre Pokemon:</label>
             <input type="text" id="pokemon_text">
+            <div>   
+            <button id="recorrer">Recorrer</button>
             <button id="buscar">Buscar</button>
+            <button id="random">Random</button>
+            </div>
         </section>
         <section id="info_pokemon">
             <h1 id="pokemon_name">Pokemon Name</h1>
@@ -74,6 +95,6 @@
             </table>
         </section>
     </main>  
-    <script src="./js/index.js"></script>
+    <script src="./scripts/app.js"></script>
 </body>
 </html>
