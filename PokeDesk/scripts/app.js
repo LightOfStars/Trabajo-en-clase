@@ -12,28 +12,104 @@ Características para desarrollar:
 
 
 //URL BASE PARA PETICIONES HTTP
-let url = "######";
-
+let url = "https://pokeapi.co/api/v2/pokemon/";
+let iterPokemon = 1;
+let idInterval = 0;
+let selectedPokemon = 0;
+let activeBuclePokemons = false;
+let checkInterval = 0;
+let pokemonCheck = 1;
 
 //Funcion para cargar información de un pokemon en el DOM de nuestra página.
 function cargarPokemon(pokemon){
-    /*Escriba la lógica de la funcion */
+    pokemonCheck = pokemon.id;
+    document.getElementById("pokemon_name").innerText = pokemon.name.toUpperCase();
+    document.getElementById("pokemon_id").innerText = String(pokemon.id).padEnd(5," ");
+    document.getElementById("pokemon_height").innerText = String(pokemon.height).padEnd(5," ");
+    document.getElementById("pokemon_weight").innerText = String(pokemon.weight).padEnd(5," ");
+    document.getElementById("pokemon_image").src = pokemon.sprites.front_default;
+    document.getElementById("pokemon_text").value = pokemon.name;
 }
 
 //Funcion para enviar peticiones a la API por el parámetro dado. 
 function obtenerDatosPokemon(parameter){
-    /*Escriba la lógica de la funcion */
+    parameter = url+parameter;
+    fetch(parameter)
+       .then(response => {
+           if(!response.ok){
+            throw new error("Error en la petición")
+           }
+           return response.json();
+       })
+       .then(datos => {
+           console.log("datos adquiridos", datos);
+           cargarPokemon(datos);
+       })
+       .catch(error => {
+           console.error("Error: ", error);
+       })
 }
 
+function cargarIterPokemon(){
+    if(iterPokemon == pokemonCheck){
+    }else{
+        iterPokemon = pokemonCheck;
+        clearInterval(checkInterval);
+    }
+}
 //Funcion para obtener el dato ingresado por el usuario.
 function buscarPokemon(){
-    /*Escriba la lógica de la funcion */
+    selectedPokemon = document.getElementById("pokemon_text").value;
+    obtenerDatosPokemon(selectedPokemon);
+    if (isNaN(selectedPokemon)){
+        checkInterval = setInterval(cargarIterPokemon,100);
+    }else{ 
+        iterPokemon = selectedPokemon;
+    }
 }
 
+//Generar id de pokemon aleatorio
+function buscarPokemonRandom(){
+    let randomPokemon = Math.floor((Math.random()*1024)+2);
+    obtenerDatosPokemon(randomPokemon);
+    iterPokemon = randomPokemon;
+}
+
+function recorrerPokemons(){
+    obtenerDatosPokemon(iterPokemon);
+    incrementId();
+}
+
+function incrementId(){
+    if (iterPokemon==1025){
+        iterPokemon = 1;
+    }else{
+        iterPokemon++;
+    }
+}
+
+function changeStateRecorrer(){
+    activeBuclePokemons = !(activeBuclePokemons);
+    if(activeBuclePokemons){
+        obtenerDatosPokemon(iterPokemon);
+        incrementId();
+        idInterval = setInterval(recorrerPokemons,2000);
+        document.getElementById("buscar").disabled = true;
+        document.getElementById("random").disabled = true;
+        document.getElementById("recorrer").textContent = "Detener";
+    }else{
+        clearInterval(idInterval);
+        document.getElementById("buscar").disabled = false;
+        document.getElementById("random").disabled = false;
+        document.getElementById("recorrer").textContent = "Recorrer";  
+    }
+}
+
+buscarPokemonRandom();
 
 //Añadir listeners al botón
 document.getElementById("buscar").addEventListener('click',buscarPokemon);
+document.getElementById("random").addEventListener('click',buscarPokemonRandom);
+document.getElementById("recorrer").addEventListener('click',changeStateRecorrer);
 
-//Generar id de pokemon aleatorio
-const randomPokemon = parseInt(Math.random()*1025);
-obtenerDatosPokemon(randomPokemon);
+
